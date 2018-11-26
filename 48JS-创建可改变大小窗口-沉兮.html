@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", serif;
+        }
+        body, dl, dd, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+        ol, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        img {
+            border: none;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            margin: 50px 0 0 50px;
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 100px;margin-top: 50px;"></div>
+    <script>
+        let oBtn = document.querySelector("button"),
+            oDiv = document.querySelector("div"),
+            x = 0,
+            y = 0
+            ;
+        oDiv.onmousedown = function () {
+            x = event.clientX;
+            y = event.clientY;
+            console.log(x);
+            console.log(y);
+            if ( 50 < y && y <= 60 ){
+                document.onmousemove = function () {
+                    console.log(1);
+                    oDiv.style.marginTop = event.clientY+"px";
+                    oDiv.style.height = y-event.clientY+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 140 < y && y <= 150 ){
+                document.onmousemove = function () {
+                    console.log(2);
+                    oDiv.style.height = event.clientY-y+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 50 < x && x <= 60 ){
+                document.onmousemove = function () {
+                    console.log(3);
+                    oDiv.style.marginLeft = event.clientX+"px";
+                    oDiv.style.width = x-event.clientX+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 140 < x && x <= 150 ){
+                document.onmousemove = function () {
+                    console.log(4);
+                    oDiv.style.width = event.clientX-x+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }
+            else if ( 50 < y && y <= 60 && 50 < x && x <= 60 ) {
+                document.onmousemove = function () {
+                    console.log(5);
+                    oDiv.style.marginTop = event.clientY+"px";
+                    oDiv.style.marginLeft = event.clientX+"px";
+                    oDiv.style.width = x-event.clientX+100+"px";
+                    oDiv.style.height = y-event.clientY+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 50 < y && y <= 60 && 140 < x && x <= 150 ){
+                document.onmousemove = function () {
+                    console.log(6);
+                    oDiv.style.width = event.clientX-x+100+"px";
+                    oDiv.style.marginTop = event.clientY+"px";
+                    oDiv.style.height = y-event.clientY+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 140 < y && y <= 150 && 50 < x && x <= 60 ) {
+                document.onmousemove = function () {
+                    console.log(7);
+                    oDiv.style.marginLeft = event.clientX+"px";
+                    oDiv.style.width = x-event.clientX+100+"px";
+                    oDiv.style.height = event.clientY-y+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }else if ( 140 < y && y <= 150 && 140 < x && x <= 150 ) {
+                document.onmousemove = function () {
+                    console.log(8);
+                    oDiv.style.width = event.clientX-x+100+"px";
+                    oDiv.style.height = event.clientY-y+100+"px";
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

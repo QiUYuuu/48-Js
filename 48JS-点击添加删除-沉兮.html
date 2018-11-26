@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            position: relative;
+            width: 600px;
+            height: 500px;
+            margin: 50px auto;
+            border: 1px dashed red;
+        }
+        #wrap div{
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
+        #wrap #div1{
+            background-color: navajowhite;
+            color: black;
+        }
+        #wrap #div1 a{
+            color: black;
+        }
+        #wrap #div2{
+            background-color: blue;
+            color: white;
+        }
+        #wrap #div2 a{
+            color: white;
+        }
+        #wrap a{
+            display: inline-block;
+            height:35px;
+            margin: 10px;
+            line-height: 35px;
+            text-align: center;
+            text-decoration: none;
+        }
+        #wrap #div1 #dd{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+        }
+        #wrap #div1 #dd a{
+            padding: 2px 5px;
+            border: 1px solid #ff6a00;
+            background-color: fuchsia;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="div1">
+            <h4>旅游热门国家：</h4>
+            <a href="#2">欧洲</a>
+            <a href="#2">法国</a>
+            <a href="#2">美国</a>
+            <a href="#2">日本</a>
+            <a href="#2">新加坡</a>
+            <div id="dd"></div>
+        </div>
+        <div id="div2"></div>
+    </div>
+    <script>
+        let aDiv = document.getElementById("div1"),
+            aDd = document.getElementById("dd"),
+            oA = document.querySelectorAll("#wrap #div1 a"),
+            aDDiv = document.getElementById("div2"),
+            ada = null,
+            adda = null,
+            len = 0
+            ;
+        [...oA].forEach((dom, index) => {
+            dom.onclick = function () {
+                //复制一个节点
+                let divv = dom.cloneNode(true);
+
+                aDiv.removeChild(dom);
+                aDDiv.appendChild(dom);
+                //把复制过的节点添加过去
+                aDd.appendChild(divv);
+
+                ada = document.querySelectorAll("#wrap #div1 #dd a");
+                adda = document.querySelectorAll("#wrap #div2 a");
+                len = ada.length;
+                console.log(ada);
+                console.log(adda);
+                console.log(len);
+
+                fm(ada, adda, len);
+
+            }
+        })
+
+        function fm(ada, adda, len) {
+            [...ada].forEach((domm, indexx) => {
+                domm.onclick = function () {
+                    //把添加过去的节点再添加回去
+                    aDiv.appendChild(adda[indexx]);
+                    //这边直接删除复制过的节点
+                    aDd.removeChild(domm);
+
+                    ada = document.querySelectorAll("#wrap #div1 #dd a");
+                    len = ada.length;
+                    console.log(ada);
+                    console.log(adda);
+                    console.log(len);
+                }
+            })
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", serif;
+        }
+        body, dl, dd, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+        ol, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        img {
+            border: none;
+        }
+        #wrap{
+            position: relative;
+            overflow: hidden;
+            width: 650px;
+            height: 100px;
+            margin: 20px auto;
+            line-height: 100px;
+        }
+        #wrap span{
+            float: left;
+            width: 25px;
+            height: 100px;
+            margin-top: -10px;
+            font-size: 100px;
+            line-height: 100px;
+        }
+        #wrap>div.fir{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 150px;
+            height: 100px;
+            color: orangered;
+            font-size: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        #wrap>div.sec{
+            position: absolute;
+            left: 235px;
+            bottom: 0;
+            width: 150px;
+            height: 100px;
+            color: orangered;
+            font-size: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        #wrap>div.thi{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 150px;
+            height: 100px;
+            color: orangered;
+            font-size: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        #wrap span.sp1{
+            position: absolute;
+            left: 180px;
+        }
+        #wrap span.sp2{
+            position: absolute;
+            right: 190px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="fir">22</div>
+    <span class="sp1">:</span>
+    <div class="sec">22</div>
+    <span class="sp2">:</span>
+    <div class="thi">22</div>
+</div>
+<script>
+    (function () {
+        let oWrap = document.getElementById("wrap"),
+            aDiv = document.querySelectorAll("#wrap div")
+        ;
+        function fm( dom,index,aP) {
+
+            aDiv[2].style.transitionDuration = .5+"s";
+            //最初位置为 bottom:0   和轮播一样 通过瞬间的位移使得用户看起来像是在一直往上走
+
+            aDiv[2].style.bottom = "0px";
+            //向div中输入时间数字
+            dom.innerHTML = aP[index];
+            //延时0.5s后使得div板块向上移动
+
+            setTimeout(function () {
+                aDiv[2].style.bottom = "100px";
+                aDiv[2].style.transitionDuration = .5+"s";
+            },500);
+            //延时0.8s后使得div板块瞬间移动到下方
+            setTimeout(function () {
+                aDiv[2].style.bottom = "-100px";
+                aDiv[2].style.transitionDuration = 0+"s";
+            },800);
+        }
+
+        function f() {
+            let a = new Date();
+            let aP = [
+                a.getHours(),
+                a.getMinutes(),
+                a.getSeconds()
+            ];
+
+            //遍历三个div板块
+            [...aDiv].forEach( (dom, index) => {
+                if (aP[index]<10){
+                    aP[index] = "0"+aP[index];
+                }
+
+                //当秒数到达59时
+                if ( aP[2] === 59 ){
+                    //延时0.3s使得div板块先向上移动
+                    setTimeout(function () {
+                        aDiv[1].style.bottom = "100px";
+                        aDiv[1].style.transitionDuration = .5+"s";
+                    },300);
+                    //然后延时0.6s使得div瞬间到达底部
+                    setTimeout(function () {
+                        aDiv[1].style.bottom = "-100px";
+                        aDiv[1].style.transitionDuration = 0+"s";
+                    },600);
+                    //延时0.9s后使得div从下方移动到原位置
+                    setTimeout(function () {
+                        aDiv[1].style.bottom = "0";
+                        aDiv[1].style.transitionDuration = .5+"s";
+                    },900);
+                    fm(dom,index,aP);
+
+                }else if ( aP[1] === 59 ){
+                    setTimeout(function () {
+                        aDiv[0].style.bottom = "100px";
+                        aDiv[0].style.transitionDuration = .5+"s";
+                    },300);
+                    setTimeout(function () {
+                        // dom.innerHTML = aP[index];
+                        aDiv[0].style.bottom = "-100px";
+                        aDiv[0].style.transitionDuration = 0+"s";
+                    },600);
+                    setTimeout(function () {
+                        aDiv[0].style.bottom = "0";
+                        aDiv[0].style.transitionDuration = .5+"s";
+                    },900);
+                    fm(dom,index,aP);
+
+                }else {
+
+                    fm(dom,index,aP);
+
+                }
+            });
+            setTimeout(f,1000);
+        }
+        setTimeout(f,100);
+    })();
+</script>
+</body>
+</html>
